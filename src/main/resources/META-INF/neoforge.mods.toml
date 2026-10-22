@@ -1,0 +1,20 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+
+[[mods]]
+modId = "redeye_buildworld"
+version = "1.0.0"
+displayName = "redeye Build World"
+description = '''Ponder-style checkerboard flat generator for the redeye /build world (World Switcher worlds created with seed 766337).'''
+authors = "austin-grace"
+
+[[mixins]]
+config = "redeye_buildworld.mixins.json"
+
+[[dependencies.redeye_buildworld]]
+modId = "worldswitcher"
+type = "optional"
+versionRange = "[1.5,)"
+ordering = "NONE"
+side = "BOTH"

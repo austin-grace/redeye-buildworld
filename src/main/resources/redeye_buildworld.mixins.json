@@ -1,0 +1,8 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "net.redeye.buildworld.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": ["DynamicDimensionManagerMixin"],
+  "injectors": { "defaultRequire": 1 }
+}
