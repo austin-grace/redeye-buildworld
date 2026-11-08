@@ -6,7 +6,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.redeye.buildworld.CheckerboardFlatSource;
 import net.redeye.buildworld.RedeyeBuildWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/** Swaps the overworld generator World Switcher uses for the checkerboard flat one, only for
- *  worlds created with {@link RedeyeBuildWorld#FLAT_SEED}. Runs on the server thread. */
+/** Swaps the overworld generator World Switcher copies for a flat preset, only for the seeds
+ *  in {@link RedeyeBuildWorld}. Runs on the server thread. */
 @Mixin(value = DynamicDimensionManager.class, remap = false)
 public abstract class DynamicDimensionManagerMixin {
     private static final ThreadLocal<WorldRegistry.WorldEntry> REDEYE_ENTRY = new ThreadLocal<>();
@@ -35,8 +34,11 @@ public abstract class DynamicDimensionManagerMixin {
         MinecraftServer server = REDEYE_SERVER.get();
         REDEYE_ENTRY.remove();
         REDEYE_SERVER.remove();
-        if (entry != null && server != null && entry.seed() == RedeyeBuildWorld.FLAT_SEED) {
-            return CheckerboardFlatSource.create(server);
+        if (entry != null && server != null) {
+            ChunkGenerator flat = RedeyeBuildWorld.generatorFor(server.registryAccess(), entry.seed());
+            if (flat != null) {
+                return flat;
+            }
         }
         return overworldChunks.getGenerator();
     }
