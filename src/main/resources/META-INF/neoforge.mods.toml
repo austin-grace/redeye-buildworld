@@ -4,9 +4,9 @@ license = "MIT"
 
 [[mods]]
 modId = "redeye_buildworld"
-version = "1.0.0"
+version = "1.1.0"
 displayName = "redeye Build World"
-description = '''Ponder-style checkerboard flat generator for the redeye /build world (World Switcher worlds created with seed 766337).'''
+description = '''Flat generators for redeye World Switcher build worlds: checkerboard (seed 766337), plains (766338), stone (766339) and a ponder grid (766340).'''
 authors = "austin-grace"
 
 [[mixins]]
